@@ -2,12 +2,12 @@ import Joi from "joi";
 
 export const emailRegexp = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
-export const registerSchema = Joi.object({
+export const registerScheme = Joi.object({
     email: Joi.string().pattern(emailRegexp).required(),
     password: Joi.string().required().min(6),
   });
   
-export const loginSchema = Joi.object({
+export const loginScheme = Joi.object({
     email: Joi.string().pattern(emailRegexp).required(),
     password: Joi.string().required().min(6),
   });
