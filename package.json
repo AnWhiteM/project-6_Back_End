@@ -1,5 +1,6 @@
 {
-  "name": "project",
+  "name": "project-6",
+  "main": "app.js",
   "type": "module",
   "scripts": {
     "prod": "node app.js",
@@ -7,18 +8,17 @@
     "dev": "nodemon -r dotenv/config app.js"
   },
   "dependencies": {
-    "@sendgrid/mail": "^8.1.3",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "gravatar": "^1.8.2",
     "jimp": "^0.22.12",
     "joi": "^17.13.1",
     "jsonwebtoken": "^9.0.2",
     "mailtrap": "^3.3.0",
     "mongoose": "^8.3.3",
     "morgan": "^1.10.0",
-    "multer": "^1.4.5-lts.1"
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.13"
   },
   "devDependencies": {
     "dotenv": "^16.4.5",
