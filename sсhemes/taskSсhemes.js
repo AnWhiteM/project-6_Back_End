@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export const createTaskSheme = Joi.object({
+export const createTaskSсheme = Joi.object({
     title: Joi.string().required(),
     description: Joi.string().required(),
     labelColor: Joi.string().required(),
@@ -9,7 +9,7 @@ export const createTaskSheme = Joi.object({
     priority:  Joi.string().required(),
 });
 
-export const updateTaskSheme = Joi.object({
+export const updateTaskSсheme = Joi.object({
     title: Joi.string(),
     description: Joi.string(),
     labelColor: Joi.string(), 
