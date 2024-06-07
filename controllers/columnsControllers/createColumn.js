@@ -4,8 +4,6 @@ const createColumn = async (req, res, next) => {
   const title = req.body.title;
   const { deskId } = req.params;
 
-  console.log(deskId);
-
   const newColumn = await addColumn({ title, deskId });
 
   res.json(newColumn).status(201);

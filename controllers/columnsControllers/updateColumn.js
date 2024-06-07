@@ -4,13 +4,13 @@ import { rewriteColumn } from "../../services/tasksServices.js";
 const updateColumn = async (req, res, next) => {
   const title = req.body.title;
   const { deskId, columnId } = req.params;
-  const desk = await rewriteColumn(columnId, deskId, { title });
+  const column = await rewriteColumn(columnId, deskId, { title });
 
-  if (!desk) {
+  if (!column) {
     throw httpError(404, "Column is not found");
   }
 
-  res.json(desk).status(200);
+  res.json(column).status(200);
 };
 
 export default updateColumn;
