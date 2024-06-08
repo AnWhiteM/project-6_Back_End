@@ -1,0 +1,352 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "TaskPro",
+    "description": "Time and Tide wait for no man"
+  },
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "servers": [{ "url": "http://localhost:8080" }],
+  "tags": [
+    {
+      "name": "Desks",
+      "description": "Desks endpoints"
+    },
+    {
+      "name": "Columns",
+      "description": "Columns endpoints"
+    },
+    {
+      "name": "Tasks",
+      "description": "Tasks endpoints"
+    }
+  ],
+  "paths": {
+    "/home": {
+      "get": {
+        "tags": ["Desks"],
+        "summary": "Get all desks of current user",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Succesful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllDesksResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["Desks"],
+        "summary": "Create new desk for current user",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "New desk`s data object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDeskRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Succesful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateDeskResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/home/:deskId": {
+      "get": {
+        "tags": ["Desks"],
+        "summary": "Get desk of current user by desk`s id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deskId",
+            "required": true,
+            "type": "string",
+            "description": "Desk`s id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Succesful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateDeskResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": ["Desks"],
+        "summary": "Update desk of current user by desk`s id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deskId",
+            "required": true,
+            "type": "string",
+            "description": "Desk`s id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Desk`s data object for updating",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDeskRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Succesful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateDeskResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Desks"],
+        "summary": "Delete desk of current user by desk`s id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deskId",
+            "required": true,
+            "type": "string",
+            "description": "Desk`s id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "204": {
+            "description": "Succesful operation",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GetAllDesksResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "objectId",
+              "description": "Desk`s id",
+              "example": "665f8b2ed94850575b278099"
+            },
+            "title": {
+              "type": "string",
+              "description": "Desk`s title",
+              "example": "Project office"
+            },
+            "owner": {
+              "type": "objectId",
+              "description": "Owner`s id",
+              "example": "666205c72d41d4b7ca7496aa"
+            },
+            "icon": {
+              "type": "string",
+              "description": "Desk`s icon",
+              "example": "deskIcon.svg"
+            },
+            "background": {
+              "type": "string",
+              "description": "Desk`s background",
+              "example": "deskBackground.png"
+            }
+          }
+        },
+        "example": [
+          {
+            "_id": "665f8b2ed94850575b278099",
+            "title": "Project office",
+            "owner": "666205c72d41d4b7ca7496aa",
+            "icon": "deskIcon.svg",
+            "background": "deskBackground.png"
+          },
+          {
+            "_id": "6663294c6607e6ef7200f2c5",
+            "title": "Neon Light Project",
+            "owner": "6662232c23fdfbe6198ce02a",
+            "icon": "deskIcon.svg",
+            "background": "deskBackground.png"
+          }
+        ]
+      },
+      "CreateDeskRequest": {
+        "type": "object",
+        "required": ["title", "icon", "background"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Desk`s title",
+            "example": "Project office"
+          },
+          "icon": {
+            "type": "string",
+            "description": "Desk`s icon",
+            "example": "deskIcon.svg"
+          },
+          "background": {
+            "type": "string",
+            "description": "Desk`s background",
+            "example": "deskBackground.png"
+          }
+        }
+      },
+      "CreateDeskResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "objectId",
+            "description": "Desk`s id",
+            "example": "665f8b2ed94850575b278099"
+          },
+          "title": {
+            "type": "string",
+            "description": "Desk`s title",
+            "example": "Project office"
+          },
+          "owner": {
+            "type": "objectId",
+            "description": "Owner`s id",
+            "example": "666205c72d41d4b7ca7496aa"
+          },
+          "icon": {
+            "type": "string",
+            "description": "Desk`s icon",
+            "example": "deskIcon.svg"
+          },
+          "background": {
+            "type": "string",
+            "description": "Desk`s background",
+            "example": "deskBackground.png"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
