@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
-import User from "../models/userModel.js";
-import httpError from "../helpers/httpError.js";
 import bcryptjs from "bcryptjs";
+import httpError from "../../helpers/httpError.js";
+import User from "../../models/userModel.js";
 
-async function login(req, res, next) {
+export async function login(req, res, next) {
   const { email, password } = req.body;
 
   const user = await User.findOne({
@@ -30,6 +30,7 @@ async function login(req, res, next) {
       name: user.name,
       email: user.email,
       avatarURL: user.avatarURL,
+      theme: user.theme,
     },
   });
 }

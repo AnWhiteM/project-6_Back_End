@@ -18,13 +18,23 @@ const loginSchema = Joi.object({
   password: Joi.string().min(8).max(64).required(),
 });
 
-// // ❓
-// updateSchema = Joi.object({
-//   name: Joi.string().min(4).max(64),
-//   email: Joi.string()
-//     .pattern(emailRegexp)
-//     .messages({ "string.pattern.base": emailPatternValidateMsg }),
-//   password: Joi.string().min(8).max(64).required(),
-// });
+const updUserInfoSchema = Joi.object({
+  name: Joi.string().min(4).max(64),
+  email: Joi.string()
+    .pattern(emailRegexp)
+    .messages({ "string.pattern.base": emailPatternValidateMsg }),
+  password: Joi.string().max(64).required(),
+})
+  .min(2)
+  .message("No changes");
 
-export default { registerSchema, loginSchema };
+const changeThemeSchema = Joi.object({
+  theme: Joi.string().valid("light", "dark", "violet").insensitive().required(),
+});
+
+export default {
+  registerSchema,
+  loginSchema,
+  updUserInfoSchema,
+  changeThemeSchema,
+};

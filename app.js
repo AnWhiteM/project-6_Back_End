@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 
-app.use(morgan("dev")); // ❗ for development - to del before deploy
+app.use(morgan("dev")); // ❗VS dev notes: to del before deploy❗
 app.use(cors());
 app.use(express.json());
 

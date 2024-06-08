@@ -1,9 +1,9 @@
 import express from "express";
 import userSchemas from "../schemas/userSchemas.js";
-
-const { registerSchema, loginSchema } = userSchemas;
 import mdwrs from "../middlewares/index.js";
 import ctrls from "../controllers/index.js";
+
+const { registerSchema, loginSchema } = userSchemas;
 
 const authRouter = express.Router();
 
