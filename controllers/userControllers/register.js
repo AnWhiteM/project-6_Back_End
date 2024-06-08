@@ -1,8 +1,8 @@
 import bcryptjs from "bcryptjs";
-import httpError from "../helpers/httpError.js";
-import User from "../models/userModel.js";
+import httpError from "../../helpers/httpError.js";
+import User from "../../models/userModel.js";
 
-async function register(req, res, next) {
+export async function register(req, res, next) {
   const { name, email, password } = req.body;
 
   const isEmailUsed = await User.findOne({ email: email.toLowerCase() });
@@ -23,6 +23,7 @@ async function register(req, res, next) {
       name: newUser.name,
       email: newUser.email,
       avatarURL: newUser.avatarURL,
+      theme: newUser.theme,
     },
   });
 }
