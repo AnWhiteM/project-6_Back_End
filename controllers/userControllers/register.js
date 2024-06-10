@@ -7,7 +7,7 @@ export async function register(req, res, next) {
 
   const isEmailUsed = await User.findOne({ email: email.toLowerCase() });
   if (isEmailUsed !== null) {
-    throw httpError(400, "Email in use");
+    throw httpError(409, "Email in use");
   }
 
   const hashPassword = await bcryptjs.hash(password, 10);
