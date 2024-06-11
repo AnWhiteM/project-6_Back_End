@@ -1,11 +1,11 @@
 {
-  "openapi": "5.0.1",
+  "openapi": "3.0.1",
   "info": {
-    "version": "1.0.2",
+    "version": "1.1.0",
     "title": "TaskPro",
     "description": "Time and Tide wait for no man"
   },
-  "consumes": ["application/json", "multipart/form-data"],
+  "consumes": ["application/json"],
   "produces": ["application/json"],
   "servers": [
     { "url": "http://localhost:8080" },
@@ -32,9 +32,1316 @@
       "name": "Tasks",
       "description": "Tasks endpoints"
     }
-  ]
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+        "requestBody": {
+          "description": "Registration object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterUserRequest"
+              },
+              "example": {
+                "name": "Alice",
+                "email": "example@example.com",
+                "password": "qwerty123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Registration success",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Registration rejected (Email in use)",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+        "requestBody": {
+          "description": "User Identification data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginUserRequest"
+              },
+              "example": {
+                "email": "example@example.com",
+                "password": "qwerty123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful user login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginUserResponse"
+                },
+                "example": {
+                  "token": "eyJhbGciOiNiI.eyJpZCINxNxNTE4iZ.wXA42lQLcNAR_Q",
+                  "user": {
+                    "name": "Alice",
+                    "email": "example@example.com",
+                    "avatarURL": "avatarURL",
+                    "theme": "light"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Email or password wrong",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User logout",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Logout completed",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
 
+    "/home": {
+      "get": {
+        "tags": ["Desks"],
+        "summary": "Get all desks of current user",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Succesful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllDesksResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["Desks"],
+        "summary": "Create new desk for current user",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "New desk`s data object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDeskRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Succesful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateDeskResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/home/:deskId": {
+      "get": {
+        "tags": ["Desks"],
+        "summary": "Get desk of current user by desk`s id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deskId",
+            "required": true,
+            "type": "string",
+            "description": "Desk`s id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Succesful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateDeskResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": ["Desks"],
+        "summary": "Update desk of current user by desk`s id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deskId",
+            "required": true,
+            "type": "string",
+            "description": "Desk`s id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Desk`s data object for updating",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDeskRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Succesful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateDeskResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Desks"],
+        "summary": "Delete desk of current user by desk`s id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deskId",
+            "required": true,
+            "type": "string",
+            "description": "Desk`s id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "204": {
+            "description": "Succesful operation",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/home/:deskId/columns": {
+      "get": {
+        "tags": ["Columns"],
+        "summary": "Get all columns of current user`s desk",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deskId",
+            "required": true,
+            "type": "string",
+            "description": "Desk`s id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Succesful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllColumnsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["Columns"],
+        "summary": "Create new column for current user`s desk",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deskId",
+            "required": true,
+            "type": "string",
+            "description": "Desk`s id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "New column`s data object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateColumnRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Succesful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateColumnResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/home/:deskId/columns/:columnId": {
+      "get": {
+        "tags": ["Columns"],
+        "summary": "Get column of current user by column`s id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deskId",
+            "required": true,
+            "type": "string",
+            "description": "Desk`s id"
+          },
+          {
+            "in": "path",
+            "name": "columnId",
+            "required": true,
+            "type": "string",
+            "description": "Column`s id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Succesful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateColumnResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": ["Columns"],
+        "summary": "Update column of current user by column`s id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deskId",
+            "required": true,
+            "type": "string",
+            "description": "Desk`s id"
+          },
+          {
+            "in": "path",
+            "name": "columnId",
+            "required": true,
+            "type": "string",
+            "description": "Column`s id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Column`s data object for updating",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateColumnRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Succesful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateColumnResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Columns"],
+        "summary": "Delete column of current user by column`s id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deskId",
+            "required": true,
+            "type": "string",
+            "description": "Desk`s id"
+          },
+          {
+            "in": "path",
+            "name": "columnId",
+            "required": true,
+            "type": "string",
+            "description": "Column`s id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "204": {
+            "description": "Succesful operation",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/home/:deskId/columns/:columnId/tasks": {
+      "get": {
+        "tags": ["Tasks"],
+        "summary": "Get all tasks of current user`s column",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deskId",
+            "required": true,
+            "type": "string",
+            "description": "Desk`s id"
+          },
+          {
+            "in": "path",
+            "name": "columnId",
+            "required": true,
+            "type": "string",
+            "description": "Column`s id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Succesful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllTasksResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["Tasks"],
+        "summary": "Create new task for current user`s column",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deskId",
+            "required": true,
+            "type": "string",
+            "description": "Desk`s id"
+          },
+          {
+            "in": "path",
+            "name": "columnId",
+            "required": true,
+            "type": "string",
+            "description": "Column`s id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "New task`s data object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTaskRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Succesful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateTaskResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/home/:deskId/columns/:columnId/tasks/:taskId": {
+      "get": {
+        "tags": ["Tasks"],
+        "summary": "Get task of current user by task`s id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deskId",
+            "required": true,
+            "type": "string",
+            "description": "Desk`s id"
+          },
+          {
+            "in": "path",
+            "name": "columnId",
+            "required": true,
+            "type": "string",
+            "description": "Column`s id"
+          },
+          {
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "type": "string",
+            "description": "Task`s id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Succesful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateTaskResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": ["Tasks"],
+        "summary": "Update task of current user by task`s id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deskId",
+            "required": true,
+            "type": "string",
+            "description": "Desk`s id"
+          },
+          {
+            "in": "path",
+            "name": "columnId",
+            "required": true,
+            "type": "string",
+            "description": "Column`s id"
+          },
+          {
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "type": "string",
+            "description": "Task`s id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Task`s data object for updating",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTaskRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Succesful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateTaskResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Tasks"],
+        "summary": "Delete task of current user by task`s id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deskId",
+            "required": true,
+            "type": "string",
+            "description": "Desk`s id"
+          },
+          {
+            "in": "path",
+            "name": "columnId",
+            "required": true,
+            "type": "string",
+            "description": "Column`s id"
+          },
+          {
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "type": "string",
+            "description": "Task`s id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "204": {
+            "description": "Succesful operation",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
 
-
-  
+  "components": {
+    "schemas": {
+      "RegisterUserRequest": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "name": {
+            "description": "User registration name",
+            "type": "string",
+            "minLength": "4",
+            "maxLength": "64",
+            "example": "Alice"
+          },
+          "email": {
+            "description": "User registration email",
+            "type": "string",
+            "format": "email",
+            "pattern": "/^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/",
+            "example": "example@example.com"
+          },
+          "password": {
+            "description": "User password",
+            "type": "string",
+            "minLength": "8",
+            "maxLength": "64",
+            "example": "qwerty123"
+          }
+        }
+      },
+      "UserInfoResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "User name",
+                "type": "string",
+                "example": "Alice"
+              },
+              "email": {
+                "description": "User email",
+                "type": "string",
+                "format": "email",
+                "example": "example@example.com"
+              },
+              "avatarURL": {
+                "description": "User avatar url",
+                "type": "string",
+                "example": "https://s.gravatar.com/avatar/fe032d032b9d3530e6c9ccf9ad519004?r=pg"
+              },
+              "theme": {
+                "description": "User UI theme",
+                "type": "string",
+                "enum": ["light", "dark", "violet"],
+                "example": "light"
+              }
+            }
+          }
+        }
+      },
+      "LoginUserRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "description": "User registration email",
+            "type": "string",
+            "format": "email",
+            "pattern": "/^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/",
+            "example": "example@example.com"
+          },
+          "password": {
+            "description": "User password",
+            "type": "string",
+            "minLength": "8",
+            "maxLength": "64",
+            "example": "qwerty123"
+          }
+        }
+      },
+      "LoginUserResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "description": "User authentication token",
+            "type": "string",
+            "example": "eyJhbGciOiNiI.eyJpZCINxNxNTE4iZ.wXA42lQLcNAR_Q"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "User name",
+                "type": "string",
+                "example": "Alice"
+              },
+              "email": {
+                "description": "User email",
+                "type": "string",
+                "format": "email",
+                "example": "example@example.com"
+              },
+              "avatarURL": {
+                "description": "User avatar url",
+                "type": "string",
+                "example": "https://s.gravatar.com/avatar/fe032d032b9d3530e6c9ccf9ad519004?r=pg"
+              },
+              "theme": {
+                "description": "User UI theme",
+                "type": "string",
+                "enum": ["light", "dark", "violet"],
+                "example": "light"
+              }
+            }
+          }
+        }
+      },
+      "LogoutUserRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "description": "User registration email",
+            "type": "string",
+            "format": "email",
+            "pattern": "/^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/",
+            "example": "example@example.com"
+          },
+          "password": {
+            "description": "User password",
+            "type": "string",
+            "minLength": "8",
+            "maxLength": "64",
+            "example": "qwerty123"
+          }
+        }
+      },
+      "GetAllDesksResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "objectId",
+              "description": "Desk`s id",
+              "example": "665f8b2ed94850575b278099"
+            },
+            "title": {
+              "type": "string",
+              "description": "Desk`s title",
+              "example": "Project office"
+            },
+            "owner": {
+              "type": "objectId",
+              "description": "Owner`s id",
+              "example": "666205c72d41d4b7ca7496aa"
+            },
+            "icon": {
+              "type": "string",
+              "description": "Desk`s icon",
+              "example": "deskIcon.svg"
+            },
+            "background": {
+              "type": "string",
+              "description": "Desk`s background",
+              "example": "deskBackground.png"
+            }
+          }
+        },
+        "example": [
+          {
+            "_id": "665f8b2ed94850575b278099",
+            "title": "Project office",
+            "owner": "666205c72d41d4b7ca7496aa",
+            "icon": "deskIcon.svg",
+            "background": "deskBackground.png"
+          },
+          {
+            "_id": "6663294c6607e6ef7200f2c5",
+            "title": "Neon Light Project",
+            "owner": "6662232c23fdfbe6198ce02a",
+            "icon": "deskIcon.svg",
+            "background": "deskBackground.png"
+          }
+        ]
+      },
+      "CreateDeskRequest": {
+        "type": "object",
+        "required": ["title", "icon", "background"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Desk`s title",
+            "example": "Project office"
+          },
+          "icon": {
+            "type": "string",
+            "description": "Desk`s icon",
+            "example": "deskIcon.svg"
+          },
+          "background": {
+            "type": "string",
+            "description": "Desk`s background",
+            "example": "deskBackground.png"
+          }
+        }
+      },
+      "CreateDeskResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "objectId",
+            "description": "Desk`s id",
+            "example": "665f8b2ed94850575b278099"
+          },
+          "title": {
+            "type": "string",
+            "description": "Desk`s title",
+            "example": "Project office"
+          },
+          "owner": {
+            "type": "objectId",
+            "description": "Owner`s id",
+            "example": "666205c72d41d4b7ca7496aa"
+          },
+          "icon": {
+            "type": "string",
+            "description": "Desk`s icon",
+            "example": "deskIcon.svg"
+          },
+          "background": {
+            "type": "string",
+            "description": "Desk`s background",
+            "example": "deskBackground.png"
+          }
+        }
+      },
+      "GetAllColumnsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "objectId",
+              "description": "Column`s id",
+              "example": "665f8b2ed94850575b278099"
+            },
+            "title": {
+              "type": "string",
+              "description": "Column`s title",
+              "example": "To do"
+            },
+            "owner": {
+              "type": "objectId",
+              "description": "Owner`s id",
+              "example": "666205c72d41d4b7ca7496aa"
+            }
+          }
+        },
+        "example": [
+          {
+            "_id": "665f8b2ed94850575b278099",
+            "title": "To do",
+            "owner": "666205c72d41d4b7ca7496aa"
+          },
+          {
+            "_id": "6663294c6607e6ef7200f2c5",
+            "title": "In progress",
+            "owner": "6662232c23fdfbe6198ce02a"
+          }
+        ]
+      },
+      "CreateColumnRequest": {
+        "type": "object",
+        "required": ["title"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Column`s title",
+            "example": "To do"
+          }
+        }
+      },
+      "CreateColumnResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "objectId",
+            "description": "Column`s id",
+            "example": "665f8b2ed94850575b278099"
+          },
+          "title": {
+            "type": "string",
+            "description": "Column`s title",
+            "example": "To do"
+          },
+          "owner": {
+            "type": "objectId",
+            "description": "Owner`s id",
+            "example": "666205c72d41d4b7ca7496aa"
+          }
+        }
+      },
+      "GetAllTasksResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "objectId",
+              "description": "Task`s id",
+              "example": "665f8b2ed94850575b278099"
+            },
+            "title": {
+              "type": "string",
+              "description": "Task`s title",
+              "example": "Make a great project"
+            },
+            "description": {
+              "type": "string",
+              "description": "Task`s description",
+              "example": "Develop cool website with my team"
+            },
+            "labelColor": {
+              "type": "string",
+              "description": "Task`s label color",
+              "example": "#000000"
+            },
+            "deadline": {
+              "type": "date",
+              "description": "Task`s deadline",
+              "example": "2024-06-14T23:59:59.000+00:00"
+            },
+            "priority": {
+              "type": "string",
+              "description": "Task`s priority",
+              "example": "high"
+            },
+            "owner": {
+              "type": "objectId",
+              "description": "Owner`s id",
+              "example": "666205c72d41d4b7ca7496aa"
+            }
+          }
+        },
+        "example": [
+          {
+            "_id": "665f8b2ed94850575b278099",
+            "title": "Make a great project",
+            "description": "Develop cool website with my team",
+            "labelColor": "#000000",
+            "deadline": "2024-06-14T23:59:59.000+00:00",
+            "priority": "high",
+            "owner": "666205c72d41d4b7ca7496aa"
+          },
+          {
+            "_id": "66635d519d5d9c0383ddf646",
+            "title": "Graduate from courses",
+            "description": "Take the diploma and start new career",
+            "labelColor": "#ffffff",
+            "deadline": "2024-06-14T23:59:59.000+00:00",
+            "priority": "high",
+            "owner": "66633f5ed3e4dac0a0af7857"
+          }
+        ]
+      },
+      "CreateTaskRequest": {
+        "type": "object",
+        "required": [
+          "title",
+          "description",
+          "labelColor",
+          "deadline",
+          "priority"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Task`s title",
+            "example": "Make a great project"
+          },
+          "description": {
+            "type": "string",
+            "description": "Task`s description",
+            "example": "Develop cool website with my team"
+          },
+          "labelColor": {
+            "type": "string",
+            "description": "Task`s label color",
+            "example": "#000000"
+          },
+          "deadline": {
+            "type": "date",
+            "description": "Task`s deadline",
+            "example": "2024-06-14T23:59:59.000+00:00"
+          },
+          "priority": {
+            "type": "string",
+            "description": "Task`s priority",
+            "example": "high"
+          }
+        }
+      },
+      "CreateTaskResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "objectId",
+            "description": "Task`s id",
+            "example": "665f8b2ed94850575b278099"
+          },
+          "title": {
+            "type": "string",
+            "description": "Task`s title",
+            "example": "Make a great project"
+          },
+          "description": {
+            "type": "string",
+            "description": "Task`s description",
+            "example": "Develop cool website with my team"
+          },
+          "labelColor": {
+            "type": "string",
+            "description": "Task`s label color",
+            "example": "#000000"
+          },
+          "deadline": {
+            "type": "date",
+            "description": "Task`s deadline",
+            "example": "2024-06-14T23:59:59.000+00:00"
+          },
+          "priority": {
+            "type": "string",
+            "description": "Task`s priority",
+            "example": "high"
+          },
+          "owner": {
+            "type": "objectId",
+            "description": "Owner`s id",
+            "example": "666205c72d41d4b7ca7496aa"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
 }

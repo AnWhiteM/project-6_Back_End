@@ -7,7 +7,7 @@ export async function register(req, res, next) {
 
   const isEmailUsed = await User.findOne({ email: email.toLowerCase() });
   if (isEmailUsed !== null) {
-    throw httpError(409, "Email in use");
+    throw httpError(409, "Registration rejected (Email in use)");
   }
 
   const hashPassword = await bcryptjs.hash(password, 10);
@@ -19,12 +19,7 @@ export async function register(req, res, next) {
   });
 
   res.status(201).send({
-    user: {
-      name: newUser.name,
-      email: newUser.email,
-      avatarURL: newUser.avatarURL,
-      theme: newUser.theme,
-    },
+    message: "Registration success",
   });
 }
 
