@@ -5,7 +5,7 @@ export async function logout(req, res, next) {
 
   await User.findOneAndUpdate(_id, { token: null });
 
-  res.status(204).send();
+  res.status(200).send({ message: "Logout completed" });
 }
 
 export default logout;

@@ -6,11 +6,13 @@ import "./db/db.js";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./swagger.json" assert { type: "json" };
 
+
+
 const PORT = process.env.PORT || 8080;
 
 const app = express();
 
-app.use(morgan("dev")); // ❗VS dev notes: to del before deploy❗
+app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
 

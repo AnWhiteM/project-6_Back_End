@@ -1,14 +1,25 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "title": "TaskPro",
     "description": "Time and Tide wait for no man"
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{ "url": "http://localhost:8080" }],
+  "servers": [
+    { "url": "http://localhost:8080" },
+    { "url": "https://project-6-back-end.onrender.com" }
+  ],
   "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "Current",
+      "description": "User Info endpoints"
+    },
     {
       "name": "Desks",
       "description": "Desks endpoints"
@@ -23,6 +34,110 @@
     }
   ],
   "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+        "requestBody": {
+          "description": "Registration object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterUserRequest"
+              },
+              "example": {
+                "name": "Alice",
+                "email": "example@example.com",
+                "password": "qwerty123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Registration success",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Registration rejected (Email in use)",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+        "requestBody": {
+          "description": "User Identification data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginUserRequest"
+              },
+              "example": {
+                "email": "example@example.com",
+                "password": "qwerty123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful user login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginUserResponse"
+                },
+                "example": {
+                  "token": "eyJhbGciOiNiI.eyJpZCINxNxNTE4iZ.wXA42lQLcNAR_Q",
+                  "user": {
+                    "name": "Alice",
+                    "email": "example@example.com",
+                    "avatarURL": "avatarURL",
+                    "theme": "light"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Email or password wrong",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User logout",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Logout completed",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
+
     "/home": {
       "get": {
         "tags": ["Desks"],
@@ -41,7 +156,7 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid request body)",
+            "description": "Bad request (Invalid request body)",
             "content": {}
           },
           "401": {
@@ -86,7 +201,7 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid request body)",
+            "description": "Bad request (Invalid request body)",
             "content": {}
           },
           "401": {
@@ -130,7 +245,7 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid request body)",
+            "description": "Bad request (Invalid request body)",
             "content": {}
           },
           "401": {
@@ -183,7 +298,7 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid request body)",
+            "description": "Bad request (Invalid request body)",
             "content": {}
           },
           "401": {
@@ -219,7 +334,7 @@
             "content": {}
           },
           "400": {
-            "description": "Bad request (invalid request body)",
+            "description": "Bad request (Invalid request body)",
             "content": {}
           },
           "401": {
@@ -263,7 +378,7 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid request body)",
+            "description": "Bad request (Invalid request body)",
             "content": {}
           },
           "401": {
@@ -316,7 +431,7 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid request body)",
+            "description": "Bad request (Invalid request body)",
             "content": {}
           },
           "401": {
@@ -367,7 +482,7 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid request body)",
+            "description": "Bad request (Invalid request body)",
             "content": {}
           },
           "401": {
@@ -427,7 +542,7 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid request body)",
+            "description": "Bad request (Invalid request body)",
             "content": {}
           },
           "401": {
@@ -470,7 +585,7 @@
             "content": {}
           },
           "400": {
-            "description": "Bad request (invalid request body)",
+            "description": "Bad request (Invalid request body)",
             "content": {}
           },
           "401": {
@@ -521,7 +636,7 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid request body)",
+            "description": "Bad request (Invalid request body)",
             "content": {}
           },
           "401": {
@@ -581,7 +696,7 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid request body)",
+            "description": "Bad request (Invalid request body)",
             "content": {}
           },
           "401": {
@@ -639,7 +754,7 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid request body)",
+            "description": "Bad request (Invalid request body)",
             "content": {}
           },
           "401": {
@@ -706,7 +821,7 @@
             }
           },
           "400": {
-            "description": "Bad request (invalid request body)",
+            "description": "Bad request (Invalid request body)",
             "content": {}
           },
           "401": {
@@ -756,7 +871,7 @@
             "content": {}
           },
           "400": {
-            "description": "Bad request (invalid request body)",
+            "description": "Bad request (Invalid request body)",
             "content": {}
           },
           "401": {
@@ -775,8 +890,145 @@
       }
     }
   },
+
   "components": {
     "schemas": {
+      "RegisterUserRequest": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "name": {
+            "description": "User registration name",
+            "type": "string",
+            "minLength": "4",
+            "maxLength": "64",
+            "example": "Alice"
+          },
+          "email": {
+            "description": "User registration email",
+            "type": "string",
+            "format": "email",
+            "pattern": "/^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/",
+            "example": "example@example.com"
+          },
+          "password": {
+            "description": "User password",
+            "type": "string",
+            "minLength": "8",
+            "maxLength": "64",
+            "example": "qwerty123"
+          }
+        }
+      },
+      "UserInfoResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "User name",
+                "type": "string",
+                "example": "Alice"
+              },
+              "email": {
+                "description": "User email",
+                "type": "string",
+                "format": "email",
+                "example": "example@example.com"
+              },
+              "avatarURL": {
+                "description": "User avatar url",
+                "type": "string",
+                "example": "https://s.gravatar.com/avatar/fe032d032b9d3530e6c9ccf9ad519004?r=pg"
+              },
+              "theme": {
+                "description": "User UI theme",
+                "type": "string",
+                "enum": ["light", "dark", "violet"],
+                "example": "light"
+              }
+            }
+          }
+        }
+      },
+      "LoginUserRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "description": "User registration email",
+            "type": "string",
+            "format": "email",
+            "pattern": "/^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/",
+            "example": "example@example.com"
+          },
+          "password": {
+            "description": "User password",
+            "type": "string",
+            "minLength": "8",
+            "maxLength": "64",
+            "example": "qwerty123"
+          }
+        }
+      },
+      "LoginUserResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "description": "User authentication token",
+            "type": "string",
+            "example": "eyJhbGciOiNiI.eyJpZCINxNxNTE4iZ.wXA42lQLcNAR_Q"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "User name",
+                "type": "string",
+                "example": "Alice"
+              },
+              "email": {
+                "description": "User email",
+                "type": "string",
+                "format": "email",
+                "example": "example@example.com"
+              },
+              "avatarURL": {
+                "description": "User avatar url",
+                "type": "string",
+                "example": "https://s.gravatar.com/avatar/fe032d032b9d3530e6c9ccf9ad519004?r=pg"
+              },
+              "theme": {
+                "description": "User UI theme",
+                "type": "string",
+                "enum": ["light", "dark", "violet"],
+                "example": "light"
+              }
+            }
+          }
+        }
+      },
+      "LogoutUserRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "description": "User registration email",
+            "type": "string",
+            "format": "email",
+            "pattern": "/^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/",
+            "example": "example@example.com"
+          },
+          "password": {
+            "description": "User password",
+            "type": "string",
+            "minLength": "8",
+            "maxLength": "64",
+            "example": "qwerty123"
+          }
+        }
+      },
       "GetAllDesksResponse": {
         "type": "array",
         "items": {
