@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.1.0",
+    "version": "1.1.1",
     "title": "TaskPro",
     "description": "Time and Tide wait for no man"
   },
@@ -219,7 +219,7 @@
         }
       }
     },
-    "/home/:deskId": {
+    "/home/{deskId}": {
       "get": {
         "tags": ["Desks"],
         "summary": "Get desk of current user by desk`s id",
@@ -352,7 +352,7 @@
         }
       }
     },
-    "/home/:deskId/columns": {
+    "/home/{deskId}/columns": {
       "get": {
         "tags": ["Columns"],
         "summary": "Get all columns of current user`s desk",
@@ -449,7 +449,7 @@
         }
       }
     },
-    "/home/:deskId/columns/:columnId": {
+    "/home/{deskId}/columns/{columnId}": {
       "get": {
         "tags": ["Columns"],
         "summary": "Get column of current user by column`s id",
@@ -603,7 +603,7 @@
         }
       }
     },
-    "/home/:deskId/columns/:columnId/tasks": {
+    "/home/{deskId}/columns/{columnId}/tasks": {
       "get": {
         "tags": ["Tasks"],
         "summary": "Get all tasks of current user`s column",
@@ -714,7 +714,7 @@
         }
       }
     },
-    "/home/:deskId/columns/:columnId/tasks/:taskId": {
+    "/home/{deskId}/columns/{columnId}/tasks/{taskId}": {
       "get": {
         "tags": ["Tasks"],
         "summary": "Get task of current user by task`s id",
