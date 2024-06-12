@@ -23,7 +23,7 @@ async function authenticate(req, res, next) {
     req.user = user;
     next();
   } catch (error) {
-    next(httpError(401, "Not authorized"));
+    next(httpError(401));
   }
 }
 
