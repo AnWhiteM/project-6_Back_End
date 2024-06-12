@@ -15,7 +15,8 @@ const deskSchema = new Schema({
     type: String,
   },
   background: {
-    type: String,
+    type: Map,
+    of: String,
   },
 });
 
