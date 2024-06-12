@@ -10,12 +10,18 @@ const authRouter = express.Router();
 // registration
 authRouter.post(
   "/register",
+  mdwrs.checkSecretKey,
   mdwrs.validateBody(registerSchema),
   ctrls.register
 );
 
 // login
-authRouter.post("/login", mdwrs.validateBody(loginSchema), ctrls.login);
+authRouter.post(
+  "/login",
+  mdwrs.checkSecretKey,
+  mdwrs.validateBody(loginSchema),
+  ctrls.login
+);
 
 // logout
 authRouter.post("/logout", mdwrs.authenticate, ctrls.logout);
