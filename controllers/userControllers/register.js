@@ -24,3 +24,4 @@ export async function register(req, res, next) {
 }
 
 export default register;
+
