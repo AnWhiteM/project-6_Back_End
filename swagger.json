@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.1.1",
+    "version": "1.2.2",
     "title": "TaskPro",
     "description": "Time and Tide wait for no man"
   },
@@ -1055,9 +1055,16 @@
               "example": "deskIcon.svg"
             },
             "background": {
-              "type": "string",
+              "type": "object",
               "description": "Desk`s background",
-              "example": "deskBackground.png"
+              "example": {
+                "mob1": "mob1.png",
+                "mob2": "mob2.png",
+                "tab1": "tab1.png",
+                "tab2": "tab2.png",
+                "des1": "des1.png",
+                "des2": "des2.png"
+              }
             }
           }
         },
@@ -1067,14 +1074,28 @@
             "title": "Project office",
             "owner": "666205c72d41d4b7ca7496aa",
             "icon": "deskIcon.svg",
-            "background": "deskBackground.png"
+            "background": {
+              "mob1": "mob1.png",
+              "mob2": "mob2.png",
+              "tab1": "tab1.png",
+              "tab2": "tab2.png",
+              "des1": "des1.png",
+              "des2": "des2.png"
+            }
           },
           {
             "_id": "6663294c6607e6ef7200f2c5",
             "title": "Neon Light Project",
             "owner": "6662232c23fdfbe6198ce02a",
             "icon": "deskIcon.svg",
-            "background": "deskBackground.png"
+            "background": {
+              "mob1": "mob1.png",
+              "mob2": "mob2.png",
+              "tab1": "tab1.png",
+              "tab2": "tab2.png",
+              "des1": "des1.png",
+              "des2": "des2.png"
+            }
           }
         ]
       },
@@ -1093,9 +1114,16 @@
             "example": "deskIcon.svg"
           },
           "background": {
-            "type": "string",
+            "type": "object",
             "description": "Desk`s background",
-            "example": "deskBackground.png"
+            "example": {
+              "mob1": "mob1.png",
+              "mob2": "mob2.png",
+              "tab1": "tab1.png",
+              "tab2": "tab2.png",
+              "des1": "des1.png",
+              "des2": "des2.png"
+            }
           }
         }
       },
@@ -1123,9 +1151,16 @@
             "example": "deskIcon.svg"
           },
           "background": {
-            "type": "string",
+            "type": "object",
             "description": "Desk`s background",
-            "example": "deskBackground.png"
+            "example": {
+              "mob1": "mob1.png",
+              "mob2": "mob2.png",
+              "tab1": "tab1.png",
+              "tab2": "tab2.png",
+              "des1": "des1.png",
+              "des2": "des2.png"
+            }
           }
         }
       },
