@@ -10,12 +10,12 @@ export async function login(req, res, next) {
     email: email.toLowerCase(),
   });
   if (!user) {
-    throw httpError(401, "Email or password wrong");
+    throw httpError(401);
   }
 
   const comparePassword = await bcryptjs.compare(password, user.password);
   if (!comparePassword) {
-    throw httpError(401, "Email or password wrong");
+    throw httpError(401);
   }
 
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, {

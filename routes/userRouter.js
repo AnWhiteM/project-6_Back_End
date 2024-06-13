@@ -11,8 +11,8 @@ const userRouter = express.Router();
 userRouter.get("/", mdwrs.authenticate, ctrls.getUserInfo);
 
 // update user info
-userRouter.put(
-  "/",
+userRouter.patch(
+  "/update",
   mdwrs.validateBody(updUserInfoSchema),
   mdwrs.authenticate,
   ctrls.updUserInfo
@@ -20,7 +20,7 @@ userRouter.put(
 
 // change theme
 mdwrs.authenticate,
-  userRouter.patch(
+  userRouter.put(
     "/theme",
     mdwrs.validateBody(changeThemeSchema),
     mdwrs.authenticate,
