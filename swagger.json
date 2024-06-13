@@ -7,7 +7,10 @@
   },
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "servers": [{ "url": "http://localhost:8080" }],
+  "servers": [
+    { "url": "http://localhost:8080" },
+    { "url": "https://project06back.onrender.com" }
+  ],
   "tags": [
     {
       "name": "Auth",
@@ -128,13 +131,12 @@
             "content": {}
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Unauthorized (Token wrong)",
             "content": {}
           }
         }
       }
     },
-
     "/current": {
       "get": {
         "tags": ["User Info"],
@@ -160,13 +162,121 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Unauthorized (Token wrong)",
             "content": {}
           }
         }
       }
     },
-
+    "/current/update": {
+      "patch": {
+        "tags": ["User Info"],
+        "summary": "Update User Info",
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Update data object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserInfoRequest"
+              },
+              "example": {
+                "name": "Bob",
+                "email": "anotheremail@example.com",
+                "password": "qwerty123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK (The request succeeded)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInfoResponse"
+                },
+                "example": {
+                  "user": {
+                    "name": "Bobby",
+                    "email": "anotheremail@example.com",
+                    "avatarURL": "https://s.gravatar.com/avatar/fe032d032b9d3530e6c9ccf9ad519004?r=pg",
+                    "theme": "light"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (Token wrong)",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found (User not found)",
+            "content": {}
+          },
+          "409": {
+            "description": "Conflict (Email in use, Update rejected)",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/current/theme": {
+      "put": {
+        "tags": ["User Info"],
+        "summary": "Change user theme",
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Selected theme object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeUserThemeRequest"
+              },
+              "example": {
+                "theme": "dark"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK (The request succeeded)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeUserThemeResponse"
+                },
+                "example": {
+                  "theme": "dark"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (Token wrong)",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found (User not found)",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/current/avatar": {},
+    
     "/home": {
       "get": {
         "tags": ["Desks"],
@@ -949,7 +1059,6 @@
           }
         }
       },
-
       "LoginUserRequest": {
         "type": "object",
         "required": ["email", "password"],
@@ -1056,6 +1165,56 @@
                 "example": "light"
               }
             }
+          }
+        }
+      },
+      "UpdateUserInfoRequest": {
+        "type": "object",
+        "required": ["password"],
+        "properties": {
+          "name": {
+            "description": "User name",
+            "type": "string",
+            "minLength": "4",
+            "maxLength": "64",
+            "example": "Bobby"
+          },
+          "email": {
+            "description": "User email",
+            "type": "string",
+            "format": "email",
+            "pattern": "/^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/",
+            "example": "anotheremail@example.com"
+          },
+          "password": {
+            "description": "User password",
+            "type": "string",
+            "minLength": "8",
+            "maxLength": "64",
+            "example": "qwerty123"
+          }
+        }
+      },
+      "ChangeUserThemeRequest": {
+        "type": "object",
+        "required": ["theme"],
+        "properties": {
+          "theme": {
+            "description": "User UI theme",
+            "type": "string",
+            "enum": ["light", "dark", "violet"],
+            "example": "dark"
+          }
+        }
+      },
+      "ChangeUserThemeResponse": {
+        "type": "object",
+        "properties": {
+          "theme": {
+            "description": "User UI theme",
+            "type": "string",
+            "enum": ["light", "dark", "violet"],
+            "example": "dark"
           }
         }
       },
