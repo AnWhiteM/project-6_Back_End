@@ -6,6 +6,7 @@ import logout from "./userControllers/logout.js";
 import getUserInfo from "./userControllers/getUserInfo.js";
 import updUserInfo from "./userControllers/updUserInfo.js";
 import changeTheme from "./userControllers/changeTheme.js";
+import changeUserAvatar from "./userControllers/changeUserAvatar.js";
 
 import getAllDesks from "./desksControllers/getAllDesks.js";
 import getOneDesk from "./desksControllers/getOneDesk.js";
@@ -33,6 +34,7 @@ export default {
   getUserInfo: ctrlWrap(getUserInfo),
   updUserInfo: ctrlWrap(updUserInfo),
   changeTheme: ctrlWrap(changeTheme),
+  changeUserAvatar: ctrlWrap(changeUserAvatar),
 
   // desks controllers
   getAllDesks: ctrlWrap(getAllDesks),
