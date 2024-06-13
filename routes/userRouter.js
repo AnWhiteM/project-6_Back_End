@@ -3,7 +3,8 @@ import userSchemas from "../schemas/userSchemas.js";
 import mdwrs from "../middlewares/index.js";
 import ctrls from "../controllers/index.js";
 
-const { updUserInfoSchema, changeThemeSchema } = userSchemas;
+const { updUserInfoSchema, changeThemeSchema, changeAvatarSchema } =
+  userSchemas;
 
 const userRouter = express.Router();
 
@@ -19,12 +20,19 @@ userRouter.patch(
 );
 
 // change theme
-mdwrs.authenticate,
-  userRouter.put(
-    "/theme",
-    mdwrs.validateBody(changeThemeSchema),
-    mdwrs.authenticate,
-    ctrls.changeTheme
-  );
+userRouter.put(
+  "/theme",
+  mdwrs.validateBody(changeThemeSchema),
+  mdwrs.authenticate,
+  ctrls.changeTheme
+);
+
+// change avatar
+userRouter.put(
+  "/avatar",
+  mdwrs.validateBody(changeAvatarSchema),
+  mdwrs.authenticate,
+  ctrls.changeUserAvatar
+);
 
 export default userRouter;

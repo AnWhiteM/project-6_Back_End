@@ -32,9 +32,14 @@ const changeThemeSchema = Joi.object({
   theme: Joi.string().valid("light", "dark", "violet").insensitive().required(),
 });
 
+const changeAvatarSchema = Joi.object({
+  avatarURL: Joi.string().required(),
+});
+
 export default {
   registerSchema,
   loginSchema,
   updUserInfoSchema,
   changeThemeSchema,
+  changeAvatarSchema,
 };
