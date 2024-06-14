@@ -1,19 +1,11 @@
-import nodemailer from "nodemailer";
+import mailjet from "node-mailjet";
 
 async function sendEmail(data) {
-  const nodemailerConfig = {
-    host: "smtp.ukr.net",
-    port: 2525,
-    secure: true,
-    auth: {
-      user: process.env.UKRNET_AUTH_USER,
-      pass: process.env.UKRNET_AUTH_PASS,
-    },
-  };
-
-  await nodemailer.createTransport(nodemailerConfig).sendMail(data);
-
-  return true;
+  const request = mailjet
+    .apiConnect(process.env.MJ_APIKEY_PUBLIC, process.env.MJ_APIKEY_PRIVATE)
+    .post("send", { version: "v3.1" })
+    .request(data);
+   return true;
 }
 
 export default sendEmail;
