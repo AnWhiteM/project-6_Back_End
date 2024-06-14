@@ -32,9 +32,18 @@ const changeThemeSchema = Joi.object({
   theme: Joi.string().valid("light", "dark", "violet").insensitive().required(),
 });
 
+const sendHelpMsgSchema = Joi.object({
+  email: Joi.string()
+    .pattern(emailRegexp)
+    .messages({ "string.pattern.base": emailPatternValidateMsg })
+    .required(),
+  comment: Joi.string().min(4).max(3000).required(),
+});
+
 export default {
   registerSchema,
   loginSchema,
   updUserInfoSchema,
   changeThemeSchema,
+  sendHelpMsgSchema,
 };

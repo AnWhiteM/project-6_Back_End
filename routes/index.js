@@ -8,7 +8,7 @@ const router = express.Router();
 
 // router.use("/welcome")
 router.use("/auth", authRouter);
-router.use("/current", userRouter);
+router.use("/current", middlewares.authenticate, userRouter);
 router.use("/home", middlewares.authenticate, tasksRouter);
 
 export default router;

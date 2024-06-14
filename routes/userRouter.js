@@ -3,28 +3,32 @@ import userSchemas from "../schemas/userSchemas.js";
 import mdwrs from "../middlewares/index.js";
 import ctrls from "../controllers/index.js";
 
-const { updUserInfoSchema, changeThemeSchema } = userSchemas;
+const { updUserInfoSchema, changeThemeSchema, sendHelpMsgSchema } = userSchemas;
 
 const userRouter = express.Router();
 
 // get user info
-userRouter.get("/", mdwrs.authenticate, ctrls.getUserInfo);
+userRouter.get("/", ctrls.getUserInfo);
 
 // update user info
 userRouter.patch(
   "/update",
   mdwrs.validateBody(updUserInfoSchema),
-  mdwrs.authenticate,
   ctrls.updUserInfo
 );
 
 // change theme
-mdwrs.authenticate,
   userRouter.put(
     "/theme",
     mdwrs.validateBody(changeThemeSchema),
-    mdwrs.authenticate,
     ctrls.changeTheme
   );
+
+// send help email
+    userRouter.post(
+      "/help",
+      mdwrs.validateBody(sendHelpMsgSchema),
+      ctrls.sendHelpMsg
+    );
 
 export default userRouter;
