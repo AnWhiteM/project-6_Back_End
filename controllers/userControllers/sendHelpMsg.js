@@ -7,12 +7,14 @@ export async function sendHelpMsg(req, res, next) {
     Messages: [
       {
         From: {
-          Email: "taskprosupport@ukr.net",
-          // Email: "vitaliy.shchukin@gmail.com",
+          Email: process.env.UKRNET_SENDER,
         },
         To: [
           {
-            Email: "vitaliy.shchukin@gmail.com",
+            Email: process.env.SUPPORT_EMAIL,
+          },
+          {
+            Email: process.env.SUB_SUPPORT_EMAIL,
           },
         ],
         Subject: "Need help",
@@ -23,14 +25,6 @@ export async function sendHelpMsg(req, res, next) {
         CustomID: "AppGettingStartedTest",
       },
     ],
-
-    // to: process.env.SUPPORT_EMAIL,
-    // from: process.env.UKRNET_SENDER,
-    // subject: "Need Help",
-    // html: `
-    //   <div>${comment}</div></br>
-    //   <div><a href="mailto:${email}" target="_blank">${email}</a></div>`,
-    // text: `${comment} ${email}`,
   };
 
   await sendEmail(helpEmail);
