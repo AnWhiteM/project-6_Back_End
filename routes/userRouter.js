@@ -3,7 +3,12 @@ import userSchemas from "../schemas/userSchemas.js";
 import mdwrs from "../middlewares/index.js";
 import ctrls from "../controllers/index.js";
 
-const { updUserInfoSchema, changeThemeSchema, sendHelpMsgSchema } = userSchemas;
+const {
+  updUserInfoSchema,
+  changeThemeSchema,
+  changeAvatarSchema,
+  sendHelpMsgSchema,
+} = userSchemas;
 
 const userRouter = express.Router();
 
@@ -18,17 +23,24 @@ userRouter.patch(
 );
 
 // change theme
-  userRouter.put(
-    "/theme",
-    mdwrs.validateBody(changeThemeSchema),
-    ctrls.changeTheme
-  );
+userRouter.put(
+  "/theme",
+  mdwrs.validateBody(changeThemeSchema),
+  ctrls.changeTheme
+);
+
+// change avatar
+userRouter.put(
+  "/avatar",
+  mdwrs.validateBody(changeAvatarSchema),
+  ctrls.changeUserAvatar
+);
 
 // send help email
-    userRouter.post(
-      "/help",
-      mdwrs.validateBody(sendHelpMsgSchema),
-      ctrls.sendHelpMsg
-    );
+userRouter.post(
+  "/help",
+  mdwrs.validateBody(sendHelpMsgSchema),
+  ctrls.sendHelpMsg
+);
 
 export default userRouter;

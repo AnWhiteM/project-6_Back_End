@@ -40,10 +40,15 @@ const sendHelpMsgSchema = Joi.object({
   comment: Joi.string().min(4).max(3000).required(),
 });
 
+const changeAvatarSchema = Joi.object({
+  avatarURL: Joi.string().required(),
+});
+
 export default {
   registerSchema,
   loginSchema,
   updUserInfoSchema,
   changeThemeSchema,
   sendHelpMsgSchema,
+  changeAvatarSchema,
 };

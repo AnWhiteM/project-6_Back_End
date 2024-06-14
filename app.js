@@ -21,19 +21,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
-// Image Uploader
-
-// const uploadResult = await cloudinary.uploader
-//   .upload(
-//     "imageURL",
-//     {
-//       folder: "folderName",
-//     }
-//   )
-//   .catch((error) => {
-//     console.log(error);
-//   });
-
 app.use("/", router);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));

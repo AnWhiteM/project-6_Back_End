@@ -7,6 +7,7 @@ import getUserInfo from "./userControllers/getUserInfo.js";
 import updUserInfo from "./userControllers/updUserInfo.js";
 import changeTheme from "./userControllers/changeTheme.js";
 import sendHelpMsg from "./userControllers/sendHelpMsg.js";
+import changeUserAvatar from "./userControllers/changeUserAvatar.js";
 
 import getAllDesks from "./desksControllers/getAllDesks.js";
 import getOneDesk from "./desksControllers/getOneDesk.js";
@@ -35,6 +36,7 @@ export default {
   updUserInfo: ctrlWrap(updUserInfo),
   changeTheme: ctrlWrap(changeTheme),
   sendHelpMsg: ctrlWrap(sendHelpMsg),
+  changeUserAvatar: ctrlWrap(changeUserAvatar),
 
   // desks controllers
   getAllDesks: ctrlWrap(getAllDesks),

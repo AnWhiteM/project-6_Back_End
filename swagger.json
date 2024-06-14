@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.2.2",
+    "version": "1.3.2",
     "title": "TaskPro",
     "description": "Time and Tide wait for no man"
   },
@@ -275,6 +275,54 @@
         }
       }
     },
+    "/current/avatar": {
+      "put": {
+        "tags": ["User Info"],
+        "summary": "Change user avatar",
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Selected avatar object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeUserAvatarRequest"
+              },
+              "example": {
+                "avatarURL": "C:/Users/ACER/OneDrive/Pictures/Picsart_23-07-31_08-48-13-160.jpg"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK (The request succeeded)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangeUserAvatarResponse"
+                },
+                "example": {
+                  "avatarURL": "https://res.cloudinary.com/dqwyuuuzd/image/upload/v1718235370/2x-mini%20fonts/j57c895ccwrfujf0cdyy.png"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (Token wrong)",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found (User not found)",
+            "content": {}
+          }
+        }
+      }
+    },
     "/current/help": {
       "post": {
         "tags": ["User Info"],
@@ -311,8 +359,6 @@
         }
       }
     },
-    "/current/avatar": {},
-
     "/home": {
       "get": {
         "tags": ["Desks"],
@@ -1251,6 +1297,27 @@
             "type": "string",
             "enum": ["light", "dark", "violet"],
             "example": "dark"
+          }
+        }
+      },
+      "ChangeUserAvatarRequest": {
+        "type": "object",
+        "required": ["avatarURL"],
+        "properties": {
+          "theme": {
+            "description": "User avatar",
+            "type": "string",
+            "example": "C:/Users/ACER/OneDrive/Pictures/Picsart_23-07-31_08-48-13-160.jpg"
+          }
+        }
+      },
+      "ChangeUserAvatarResponse": {
+        "type": "object",
+        "properties": {
+          "theme": {
+            "description": "User avatar",
+            "type": "string",
+            "example": "https://res.cloudinary.com/dqwyuuuzd/image/upload/v1718235370/2x-mini%20fonts/j57c895ccwrfujf0cdyy.png"
           }
         }
       },
