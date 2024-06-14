@@ -1,11 +1,11 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.3.2",
+    "version": "1.4.1",
     "title": "TaskPro",
     "description": "Time and Tide wait for no man"
   },
-  "consumes": ["application/json"],
+  "consumes": ["application/json", "multipart/form-data"],
   "produces": ["application/json"],
   "servers": [
     { "url": "http://localhost:8080" },
@@ -284,12 +284,12 @@
           "description": "Selected avatar object",
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/ChangeUserAvatarRequest"
               },
               "example": {
-                "avatarURL": "C:/Users/ACER/OneDrive/Pictures/Picsart_23-07-31_08-48-13-160.jpg"
+                "avatar": "UserAvatar.jpg"
               }
             }
           }
@@ -303,7 +303,7 @@
                   "$ref": "#/components/schemas/ChangeUserAvatarResponse"
                 },
                 "example": {
-                  "avatarURL": "https://res.cloudinary.com/dqwyuuuzd/image/upload/v1718235370/2x-mini%20fonts/j57c895ccwrfujf0cdyy.png"
+                  "avatarURL": "https://res.cloudinary.com/dqwyuuuzd/image/upload/v1718390355/avatars/tr4dpoxtwd3b0ojijs9d.jpg"
                 }
               }
             }
@@ -1302,22 +1302,22 @@
       },
       "ChangeUserAvatarRequest": {
         "type": "object",
-        "required": ["avatarURL"],
+        "required": ["avatar"],
         "properties": {
-          "theme": {
+          "avatar": {
             "description": "User avatar",
-            "type": "string",
-            "example": "C:/Users/ACER/OneDrive/Pictures/Picsart_23-07-31_08-48-13-160.jpg"
+            "type": "file",
+            "example": "UserAvatar.jpg"
           }
         }
       },
       "ChangeUserAvatarResponse": {
         "type": "object",
         "properties": {
-          "theme": {
+          "avatarURL": {
             "description": "User avatar",
             "type": "string",
-            "example": "https://res.cloudinary.com/dqwyuuuzd/image/upload/v1718235370/2x-mini%20fonts/j57c895ccwrfujf0cdyy.png"
+            "example": "https://res.cloudinary.com/dqwyuuuzd/image/upload/v1718390355/avatars/tr4dpoxtwd3b0ojijs9d.jpg"
           }
         }
       },
