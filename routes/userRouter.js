@@ -3,12 +3,7 @@ import userSchemas from "../schemas/userSchemas.js";
 import mdwrs from "../middlewares/index.js";
 import ctrls from "../controllers/index.js";
 
-const {
-  updUserInfoSchema,
-  changeThemeSchema,
-  changeAvatarSchema,
-  sendHelpMsgSchema,
-} = userSchemas;
+const { updUserInfoSchema, changeThemeSchema, sendHelpMsgSchema } = userSchemas;
 
 const userRouter = express.Router();
 
@@ -32,7 +27,7 @@ userRouter.put(
 // change avatar
 userRouter.put(
   "/avatar",
-  mdwrs.validateBody(changeAvatarSchema),
+  mdwrs.uploadAvatar.single("avatar"),
   ctrls.changeUserAvatar
 );
 
