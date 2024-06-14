@@ -15,7 +15,7 @@ export async function sendHelpMsg(req, res, next) {
 
   await sendEmail(helpEmail);
 
-  res.status(202).send({ message: "NeedHelp message sent" });
+  res.status(202).send({ message: "Help message sent" });
 }
 
 export default sendHelpMsg;
