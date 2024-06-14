@@ -35,5 +35,5 @@ app.use((error, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.info(`Server is running. Use our API on port: ${PORT}`);
+  console.info(`Server is running`);
 });

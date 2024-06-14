@@ -32,6 +32,14 @@ const changeThemeSchema = Joi.object({
   theme: Joi.string().valid("light", "dark", "violet").insensitive().required(),
 });
 
+const sendHelpMsgSchema = Joi.object({
+  email: Joi.string()
+    .pattern(emailRegexp)
+    .messages({ "string.pattern.base": emailPatternValidateMsg })
+    .required(),
+  comment: Joi.string().min(4).max(3000).required(),
+});
+
 const changeAvatarSchema = Joi.object({
   avatarURL: Joi.string().required(),
 });
@@ -41,5 +49,6 @@ export default {
   loginSchema,
   updUserInfoSchema,
   changeThemeSchema,
+  sendHelpMsgSchema,
   changeAvatarSchema,
 };

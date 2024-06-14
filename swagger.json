@@ -323,7 +323,42 @@
         }
       }
     },
-
+    "/current/help": {
+      "post": {
+        "tags": ["User Info"],
+        "summary": "Send NeedHelp message",
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Message object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendHelpMsgMsgRequest"
+              },
+              "example": {
+                "email": "example@example.com",
+                "comment": "I need help!"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted (Help message sent)",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized (Token wrong)",
+            "content": {}
+          }
+        }
+      }
+    },
     "/home": {
       "get": {
         "tags": ["Desks"],
@@ -1283,6 +1318,26 @@
             "description": "User avatar",
             "type": "string",
             "example": "https://res.cloudinary.com/dqwyuuuzd/image/upload/v1718235370/2x-mini%20fonts/j57c895ccwrfujf0cdyy.png"
+          }
+        }
+      },
+      "SendHelpMsgMsgRequest": {
+        "type": "object",
+        "required": ["email", "comment"],
+        "properties": {
+          "email": {
+            "description": "User email",
+            "type": "string",
+            "format": "email",
+            "pattern": "/^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/",
+            "example": "example@example.com"
+          },
+          "comment": {
+            "description": "Comment",
+            "type": "string",
+            "minLength": "4",
+            "maxLength": "3000",
+            "example": "I need help!"
           }
         }
       },
