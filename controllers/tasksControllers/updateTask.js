@@ -2,12 +2,11 @@ import httpError from "../../helpers/httpError.js";
 import { rewriteTask } from "../../services/tasksServices.js";
 
 const updateTask = async (req, res, next) => {
-  const { title, description, labelColor, deadline, priority } = req.body;
+  const { title, description, deadline, priority } = req.body;
   const { columnId, taskId } = req.params;
   const task = await rewriteTask(taskId, columnId, {
     title,
     description,
-    labelColor,
     deadline,
     priority,
   });

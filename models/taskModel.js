@@ -15,10 +15,6 @@ export const taskSchema = new Schema({
     type: String,
     required: [true, "'Description' is required"],
   },
-  labelColor: {
-    type: String,
-    required: [true, "'Label Color' is required"],
-  },
   deadline: {
     type: Date,
     required: [true, "'Label Color' is required"],
