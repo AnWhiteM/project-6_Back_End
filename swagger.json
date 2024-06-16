@@ -137,7 +137,7 @@
         }
       }
     },
-    "/current": {
+    "/users/current": {
       "get": {
         "tags": ["User Info"],
         "summary": "Get User Info",
@@ -168,14 +168,13 @@
         }
       }
     },
-    "/current/update": {
+    "/users/update": {
       "patch": {
         "tags": ["User Info"],
         "summary": "Update User Info",
         "security": [{ "Bearer": [] }],
         "requestBody": {
           "description": "Update data object",
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
@@ -208,12 +207,20 @@
               }
             }
           },
+          "204": {
+            "description": "No Content (No changes fo update)",
+            "content": {}
+          },
           "400": {
             "description": "Bad request (Invalid request body)",
             "content": {}
           },
           "401": {
             "description": "Unauthorized (Token wrong)",
+            "content": {}
+          },
+          "403": {
+            "description": "Forbidden (Password wrong)",
             "content": {}
           },
           "404": {
@@ -227,7 +234,7 @@
         }
       }
     },
-    "/current/theme": {
+    "/users/theme": {
       "put": {
         "tags": ["User Info"],
         "summary": "Change user theme",
@@ -275,7 +282,7 @@
         }
       }
     },
-    "/current/avatar": {
+    "/users/avatar": {
       "put": {
         "tags": ["User Info"],
         "summary": "Change user avatar",
@@ -323,7 +330,7 @@
         }
       }
     },
-    "/current/help": {
+    "/users/help": {
       "post": {
         "tags": ["User Info"],
         "summary": "Send NeedHelp message",
@@ -1252,7 +1259,6 @@
       },
       "UpdateUserInfoRequest": {
         "type": "object",
-        "required": ["password"],
         "properties": {
           "name": {
             "description": "User name",
@@ -1271,7 +1277,6 @@
           "password": {
             "description": "User password",
             "type": "string",
-            "minLength": "8",
             "maxLength": "64",
             "example": "qwerty123"
           }
