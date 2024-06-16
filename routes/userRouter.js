@@ -8,7 +8,7 @@ const { updUserInfoSchema, changeThemeSchema, sendHelpMsgSchema } = userSchemas;
 const userRouter = express.Router();
 
 // get user info
-userRouter.get("/", ctrls.getUserInfo);
+userRouter.get("/current", ctrls.getUserInfo);
 
 // update user info
 userRouter.patch(

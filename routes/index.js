@@ -10,7 +10,7 @@ const router = express.Router();
 
 // router.use("/welcome")
 router.use("/auth", authRouter);
-router.use("/current", middlewares.authenticate, userRouter);
+router.use("/users", middlewares.authenticate, userRouter);
 router.use("/desks", middlewares.authenticate, desksRouter);
 router.use("/columns", middlewares.authenticate, columnsRouter);
 router.use("/tasks", middlewares.authenticate, tasksRouter);

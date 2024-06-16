@@ -23,7 +23,7 @@ const updUserInfoSchema = Joi.object({
   email: Joi.string()
     .pattern(emailRegexp)
     .messages({ "string.pattern.base": emailPatternValidateMsg }),
-  password: Joi.string().max(64).required(),
+  password: Joi.string().max(64)
 })
   .min(2)
   .message("No changes");
