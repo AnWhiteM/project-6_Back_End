@@ -85,7 +85,6 @@ export const addTask = async ({
   title,
   columnId,
   description,
-  labelColor,
   deadline,
   priority,
 }) => {
@@ -93,7 +92,6 @@ export const addTask = async ({
     title,
     owner: columnId,
     description,
-    labelColor,
     deadline,
     priority,
   });

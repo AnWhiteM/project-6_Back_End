@@ -1,14 +1,11 @@
 import httpError from "../../helpers/httpError.js";
 import { rewriteTask } from "../../services/tasksServices.js";
 
-const updateTask = async (req, res, next) => {
-  const { title, description, deadline, priority } = req.body;
+const changeTaskOwner = async (req, res, next) => {
+  const { owner } = req.body;
   const { columnId, taskId } = req.params;
   const task = await rewriteTask(taskId, columnId, {
-    title,
-    description,
-    deadline,
-    priority,
+    owner,
   });
 
   if (!task) {
@@ -18,4 +15,4 @@ const updateTask = async (req, res, next) => {
   res.json(task).status(200);
 };
 
-export default updateTask;
+export default changeTaskOwner;

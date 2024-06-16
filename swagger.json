@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.4.1",
+    "version": "1.5.2",
     "title": "TaskPro",
     "description": "Time and Tide wait for no man"
   },
@@ -366,7 +366,7 @@
         }
       }
     },
-    "/home": {
+    "/desks": {
       "get": {
         "tags": ["Desks"],
         "summary": "Get all desks of current user",
@@ -447,7 +447,7 @@
         }
       }
     },
-    "/home/{deskId}": {
+    "/desks/{deskId}": {
       "get": {
         "tags": ["Desks"],
         "summary": "Get desk of current user by desk`s id",
@@ -580,7 +580,7 @@
         }
       }
     },
-    "/home/{deskId}/columns": {
+    "/columns/{deskId}": {
       "get": {
         "tags": ["Columns"],
         "summary": "Get all columns of current user`s desk",
@@ -677,7 +677,7 @@
         }
       }
     },
-    "/home/{deskId}/columns/{columnId}": {
+    "/columns/{deskId}/{columnId}": {
       "get": {
         "tags": ["Columns"],
         "summary": "Get column of current user by column`s id",
@@ -831,7 +831,7 @@
         }
       }
     },
-    "/home/{deskId}/columns/{columnId}/tasks": {
+    "/tasks/{deskId}/{columnId}": {
       "get": {
         "tags": ["Tasks"],
         "summary": "Get all tasks of current user`s column",
@@ -942,7 +942,7 @@
         }
       }
     },
-    "/home/{deskId}/columns/{columnId}/tasks/{taskId}": {
+    "/tasks/{deskId}/{columnId}/{taskId}": {
       "get": {
         "tags": ["Tasks"],
         "summary": "Get task of current user by task`s id",
@@ -1033,6 +1033,73 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateTaskRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Succesful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateTaskResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (Invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Tasks"],
+        "summary": "Update task`s owner of current user by task`s id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deskId",
+            "required": true,
+            "type": "string",
+            "description": "Desk`s id"
+          },
+          {
+            "in": "path",
+            "name": "columnId",
+            "required": true,
+            "type": "string",
+            "description": "Column`s id"
+          },
+          {
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "type": "string",
+            "description": "Task`s id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Task`s new owner id for updating",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeTaskOwnerRequest"
               }
             }
           }
@@ -1500,6 +1567,44 @@
               "type": "objectId",
               "description": "Owner`s id",
               "example": "666205c72d41d4b7ca7496aa"
+            },
+            "tasks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "objectId",
+                    "description": "Task`s id",
+                    "example": "665f8b2ed94850575b278099"
+                  },
+                  "title": {
+                    "type": "string",
+                    "description": "Task`s title",
+                    "example": "Make a great project"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Task`s description",
+                    "example": "Develop cool website with my team"
+                  },
+                  "deadline": {
+                    "type": "date",
+                    "description": "Task`s deadline",
+                    "example": "2024-06-14T23:59:59.000+00:00"
+                  },
+                  "priority": {
+                    "type": "string",
+                    "description": "Task`s priority",
+                    "example": "high"
+                  },
+                  "owner": {
+                    "type": "objectId",
+                    "description": "Owner`s id",
+                    "example": "666205c72d41d4b7ca7496aa"
+                  }
+                }
+              }
             }
           }
         },
@@ -1507,12 +1612,48 @@
           {
             "_id": "665f8b2ed94850575b278099",
             "title": "To do",
-            "owner": "666205c72d41d4b7ca7496aa"
+            "owner": "666205c72d41d4b7ca7496aa",
+            "tasks": [
+              {
+                "_id": "66633f5ed3e4dac0a0af7857",
+                "title": "Make a great project",
+                "description": "Develop cool website with my team",
+                "deadline": "2024-06-14T23:59:59.000+00:00",
+                "priority": "high",
+                "owner": "665f8b2ed94850575b278099"
+              },
+              {
+                "_id": "66635d519d5d9c0383ddf646",
+                "title": "Graduate from courses",
+                "description": "Take the diploma and start new career",
+                "deadline": "2024-06-14T23:59:59.000+00:00",
+                "priority": "high",
+                "owner": "665f8b2ed94850575b278099"
+              }
+            ]
           },
           {
             "_id": "6663294c6607e6ef7200f2c5",
             "title": "In progress",
-            "owner": "6662232c23fdfbe6198ce02a"
+            "owner": "6662232c23fdfbe6198ce02a",
+            "tasks": [
+              {
+                "_id": "665f8b2ed94850575b278099",
+                "title": "Make a great project",
+                "description": "Develop cool website with my team",
+                "deadline": "2024-06-14T23:59:59.000+00:00",
+                "priority": "high",
+                "owner": "6663294c6607e6ef7200f2c5"
+              },
+              {
+                "_id": "66635d519d5d9c0383ddf646",
+                "title": "Graduate from courses",
+                "description": "Take the diploma and start new career",
+                "deadline": "2024-06-14T23:59:59.000+00:00",
+                "priority": "high",
+                "owner": "6663294c6607e6ef7200f2c5"
+              }
+            ]
           }
         ]
       },
@@ -1544,6 +1685,11 @@
             "type": "objectId",
             "description": "Owner`s id",
             "example": "666205c72d41d4b7ca7496aa"
+          },
+          "tasks": {
+            "type": "array",
+            "description": "Column`s tasks",
+            "example": "[]"
           }
         }
       },
@@ -1567,11 +1713,6 @@
               "description": "Task`s description",
               "example": "Develop cool website with my team"
             },
-            "labelColor": {
-              "type": "string",
-              "description": "Task`s label color",
-              "example": "#000000"
-            },
             "deadline": {
               "type": "date",
               "description": "Task`s deadline",
@@ -1594,7 +1735,6 @@
             "_id": "665f8b2ed94850575b278099",
             "title": "Make a great project",
             "description": "Develop cool website with my team",
-            "labelColor": "#000000",
             "deadline": "2024-06-14T23:59:59.000+00:00",
             "priority": "high",
             "owner": "666205c72d41d4b7ca7496aa"
@@ -1603,7 +1743,6 @@
             "_id": "66635d519d5d9c0383ddf646",
             "title": "Graduate from courses",
             "description": "Take the diploma and start new career",
-            "labelColor": "#ffffff",
             "deadline": "2024-06-14T23:59:59.000+00:00",
             "priority": "high",
             "owner": "66633f5ed3e4dac0a0af7857"
@@ -1612,13 +1751,7 @@
       },
       "CreateTaskRequest": {
         "type": "object",
-        "required": [
-          "title",
-          "description",
-          "labelColor",
-          "deadline",
-          "priority"
-        ],
+        "required": ["title", "description", "deadline", "priority"],
         "properties": {
           "title": {
             "type": "string",
@@ -1629,11 +1762,6 @@
             "type": "string",
             "description": "Task`s description",
             "example": "Develop cool website with my team"
-          },
-          "labelColor": {
-            "type": "string",
-            "description": "Task`s label color",
-            "example": "#000000"
           },
           "deadline": {
             "type": "date",
@@ -1665,11 +1793,6 @@
             "description": "Task`s description",
             "example": "Develop cool website with my team"
           },
-          "labelColor": {
-            "type": "string",
-            "description": "Task`s label color",
-            "example": "#000000"
-          },
           "deadline": {
             "type": "date",
             "description": "Task`s deadline",
@@ -1683,6 +1806,16 @@
           "owner": {
             "type": "objectId",
             "description": "Owner`s id",
+            "example": "666205c72d41d4b7ca7496aa"
+          }
+        }
+      },
+      "ChangeTaskOwnerRequest": {
+        "type": "object",
+        "properties": {
+          "owner": {
+            "type": "objectId",
+            "description": "New owner`s id",
             "example": "666205c72d41d4b7ca7496aa"
           }
         }

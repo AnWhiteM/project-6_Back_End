@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import handleMongooseError from "../helpers/handleMongooseError.js";
 
-const taskSchema = new Schema({
+export const taskSchema = new Schema({
   title: {
     type: String,
     maxlength: [64, "'Title' must contain max 64 characters"],
@@ -14,10 +14,6 @@ const taskSchema = new Schema({
   description: {
     type: String,
     required: [true, "'Description' is required"],
-  },
-  labelColor: {
-    type: String,
-    required: [true, "'Label Color' is required"],
   },
   deadline: {
     type: Date,
