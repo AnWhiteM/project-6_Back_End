@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import handleMongooseError from "../helpers/handleMongooseError.js";
+import { taskSchema } from "./taskModel.js";
 
 const columnSchema = new Schema({
   title: {
@@ -10,6 +11,10 @@ const columnSchema = new Schema({
   owner: {
     type: Schema.Types.ObjectId,
     ref: "Desk",
+  },
+  tasks: {
+    type: [taskSchema],
+    default: [],
   },
 });
 
