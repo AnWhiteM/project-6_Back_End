@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "version": "1.5.1",
+    "version": "1.5.2",
     "title": "TaskPro",
     "description": "Time and Tide wait for no man"
   },
@@ -1583,11 +1583,6 @@
                     "description": "Task`s description",
                     "example": "Develop cool website with my team"
                   },
-                  "labelColor": {
-                    "type": "string",
-                    "description": "Task`s label color",
-                    "example": "#000000"
-                  },
                   "deadline": {
                     "type": "date",
                     "description": "Task`s deadline",
@@ -1618,7 +1613,6 @@
                 "_id": "66633f5ed3e4dac0a0af7857",
                 "title": "Make a great project",
                 "description": "Develop cool website with my team",
-                "labelColor": "#000000",
                 "deadline": "2024-06-14T23:59:59.000+00:00",
                 "priority": "high",
                 "owner": "665f8b2ed94850575b278099"
@@ -1627,7 +1621,6 @@
                 "_id": "66635d519d5d9c0383ddf646",
                 "title": "Graduate from courses",
                 "description": "Take the diploma and start new career",
-                "labelColor": "#ffffff",
                 "deadline": "2024-06-14T23:59:59.000+00:00",
                 "priority": "high",
                 "owner": "665f8b2ed94850575b278099"
@@ -1643,7 +1636,6 @@
                 "_id": "665f8b2ed94850575b278099",
                 "title": "Make a great project",
                 "description": "Develop cool website with my team",
-                "labelColor": "#000000",
                 "deadline": "2024-06-14T23:59:59.000+00:00",
                 "priority": "high",
                 "owner": "6663294c6607e6ef7200f2c5"
@@ -1652,7 +1644,6 @@
                 "_id": "66635d519d5d9c0383ddf646",
                 "title": "Graduate from courses",
                 "description": "Take the diploma and start new career",
-                "labelColor": "#ffffff",
                 "deadline": "2024-06-14T23:59:59.000+00:00",
                 "priority": "high",
                 "owner": "6663294c6607e6ef7200f2c5"
@@ -1717,11 +1708,6 @@
               "description": "Task`s description",
               "example": "Develop cool website with my team"
             },
-            "labelColor": {
-              "type": "string",
-              "description": "Task`s label color",
-              "example": "#000000"
-            },
             "deadline": {
               "type": "date",
               "description": "Task`s deadline",
@@ -1744,7 +1730,6 @@
             "_id": "665f8b2ed94850575b278099",
             "title": "Make a great project",
             "description": "Develop cool website with my team",
-            "labelColor": "#000000",
             "deadline": "2024-06-14T23:59:59.000+00:00",
             "priority": "high",
             "owner": "666205c72d41d4b7ca7496aa"
@@ -1753,7 +1738,6 @@
             "_id": "66635d519d5d9c0383ddf646",
             "title": "Graduate from courses",
             "description": "Take the diploma and start new career",
-            "labelColor": "#ffffff",
             "deadline": "2024-06-14T23:59:59.000+00:00",
             "priority": "high",
             "owner": "66633f5ed3e4dac0a0af7857"
@@ -1762,13 +1746,7 @@
       },
       "CreateTaskRequest": {
         "type": "object",
-        "required": [
-          "title",
-          "description",
-          "labelColor",
-          "deadline",
-          "priority"
-        ],
+        "required": ["title", "description", "deadline", "priority"],
         "properties": {
           "title": {
             "type": "string",
@@ -1779,11 +1757,6 @@
             "type": "string",
             "description": "Task`s description",
             "example": "Develop cool website with my team"
-          },
-          "labelColor": {
-            "type": "string",
-            "description": "Task`s label color",
-            "example": "#000000"
           },
           "deadline": {
             "type": "date",
@@ -1814,11 +1787,6 @@
             "type": "string",
             "description": "Task`s description",
             "example": "Develop cool website with my team"
-          },
-          "labelColor": {
-            "type": "string",
-            "description": "Task`s label color",
-            "example": "#000000"
           },
           "deadline": {
             "type": "date",
