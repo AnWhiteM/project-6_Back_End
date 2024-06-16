@@ -23,6 +23,7 @@ import getAllTasks from "./tasksControllers/getAllTasks.js";
 import getOneTask from "./tasksControllers/getOneTask.js";
 import createTask from "./tasksControllers/createTask.js";
 import updateTask from "./tasksControllers/updateTask.js";
+import changeTaskOwner from "./tasksControllers/changeTaskOwner.js";
 import deleteTask from "./tasksControllers/deleteTask.js";
 
 export default {
@@ -57,5 +58,6 @@ export default {
   getOneTask: ctrlWrap(getOneTask),
   createTask: ctrlWrap(createTask),
   updateTask: ctrlWrap(updateTask),
+  changeTaskOwner: ctrlWrap(changeTaskOwner),
   deleteTask: ctrlWrap(deleteTask),
 };

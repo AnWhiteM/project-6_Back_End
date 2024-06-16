@@ -1,5 +1,5 @@
 import httpError from "../../helpers/httpError.js";
-import { rewriteColumn } from "../../services/tasksServices.js";
+import { listTasks, rewriteColumn } from "../../services/tasksServices.js";
 
 const updateColumn = async (req, res, next) => {
   const title = req.body.title;
@@ -9,6 +9,9 @@ const updateColumn = async (req, res, next) => {
   if (!column) {
     throw httpError(404, "Column is not found");
   }
+
+  const tasks = await listTasks(column._id);
+  column.tasks = tasks;
 
   res.json(column).status(200);
 };
