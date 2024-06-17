@@ -30,7 +30,7 @@ const userSchema = new Schema(
     theme: {
       type: String,
       enum: ["light", "dark", "violet"],
-      default: "light",
+      default: "dark",
     },
     token: {
       type: String,
