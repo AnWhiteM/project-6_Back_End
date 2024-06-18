@@ -1,20 +1,22 @@
 import express from "express";
-import userSchemas from "../schemas/userSchemas.js";
+import {
+  changeCurrentSchema,
+  changeThemeSchema,
+  sendHelpMsgSchema,
+} from "../schemas/userSchemas.js";
 import mdwrs from "../middlewares/index.js";
 import ctrls from "../controllers/index.js";
-
-const { updUserInfoSchema, changeThemeSchema, sendHelpMsgSchema } = userSchemas;
 
 export const userRouter = express.Router();
 
 // get user info
-userRouter.get("/current", ctrls.getUserInfo);
+userRouter.get("/current", ctrls.getCurrent);
 
 // update user info
 userRouter.patch(
   "/update",
-  mdwrs.validateBody(updUserInfoSchema),
-  ctrls.updUserInfo
+  mdwrs.validateBody(changeCurrentSchema),
+  ctrls.changeCurrent
 );
 
 // change theme
@@ -28,7 +30,7 @@ userRouter.put(
 userRouter.put(
   "/avatar",
   mdwrs.uploadAvatar.single("avatar"),
-  ctrls.changeUserAvatar
+  ctrls.changeAvatar
 );
 
 // send help email

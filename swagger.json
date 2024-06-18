@@ -293,7 +293,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/ChangeUserAvatarRequest"
+                "$ref": "#/components/schemas/ChangeAvatarRequest"
               },
               "example": {
                 "avatar": "UserAvatar.jpg"
@@ -307,7 +307,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ChangeUserAvatarResponse"
+                  "$ref": "#/components/schemas/ChangeAvatarResponse"
                 },
                 "example": {
                   "avatarURL": "https://res.cloudinary.com/dqwyuuuzd/image/upload/v1718390355/avatars/tr4dpoxtwd3b0ojijs9d.jpg"
@@ -1372,7 +1372,7 @@
           }
         }
       },
-      "ChangeUserAvatarRequest": {
+      "ChangeAvatarRequest": {
         "type": "object",
         "required": ["avatar"],
         "properties": {
@@ -1383,7 +1383,7 @@
           }
         }
       },
-      "ChangeUserAvatarResponse": {
+      "ChangeAvatarResponse": {
         "type": "object",
         "properties": {
           "avatarURL": {
