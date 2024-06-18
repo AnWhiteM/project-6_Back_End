@@ -3,11 +3,11 @@ import ctrlWrap from "../helpers/ctrlWrap.js";
 import register from "./userControllers/register.js";
 import login from "./userControllers/login.js";
 import logout from "./userControllers/logout.js";
-import getUserInfo from "./userControllers/getUserInfo.js";
-import updUserInfo from "./userControllers/updUserInfo.js";
+import getCurrent from "./userControllers/getCurrent.js";
+import changeCurrent from "./userControllers/changeCurrent.js";
 import changeTheme from "./userControllers/changeTheme.js";
 import sendHelpMsg from "./userControllers/sendHelpMsg.js";
-import changeUserAvatar from "./userControllers/changeUserAvatar.js";
+import changeAvatar from "./userControllers/changeAvatar.js";
 
 import getAllDesks from "./desksControllers/getAllDesks.js";
 import getOneDesk from "./desksControllers/getOneDesk.js";
@@ -33,11 +33,11 @@ export default {
   logout: ctrlWrap(logout),
 
   // user controllers
-  getUserInfo: ctrlWrap(getUserInfo),
-  updUserInfo: ctrlWrap(updUserInfo),
+  getCurrent: ctrlWrap(getCurrent),
+  changeCurrent: ctrlWrap(changeCurrent),
   changeTheme: ctrlWrap(changeTheme),
   sendHelpMsg: ctrlWrap(sendHelpMsg),
-  changeUserAvatar: ctrlWrap(changeUserAvatar),
+  changeAvatar: ctrlWrap(changeAvatar),
 
   // desks controllers
   getAllDesks: ctrlWrap(getAllDesks),

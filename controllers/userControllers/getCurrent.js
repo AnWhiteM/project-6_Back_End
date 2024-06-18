@@ -1,4 +1,4 @@
-export async function getUserInfo(req, res, next) {
+export async function getCurrent(req, res, next) {
   const { name, email, avatarURL, theme } = req.user;
 
   res.status(200).send({
@@ -9,4 +9,4 @@ export async function getUserInfo(req, res, next) {
   });
 }
 
-export default getUserInfo;
+export default getCurrent;

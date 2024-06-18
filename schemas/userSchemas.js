@@ -1,7 +1,7 @@
 import Joi from "joi";
 import { emailRegexp, emailPatternValidateMsg } from "../helpers/regexps.js";
 
-const registerSchema = Joi.object({
+export const registerSchema = Joi.object({
   name: Joi.string().min(4).max(64).required(),
   email: Joi.string()
     .pattern(emailRegexp)
@@ -10,7 +10,7 @@ const registerSchema = Joi.object({
   password: Joi.string().min(8).max(64).required(),
 });
 
-const loginSchema = Joi.object({
+export const loginSchema = Joi.object({
   email: Joi.string()
     .pattern(emailRegexp)
     .messages({ "string.pattern.base": emailPatternValidateMsg })
@@ -18,30 +18,22 @@ const loginSchema = Joi.object({
   password: Joi.string().min(8).max(64).required(),
 });
 
-const updUserInfoSchema = Joi.object({
+export const changeCurrentSchema = Joi.object({
   name: Joi.string().min(4).max(64),
   email: Joi.string()
     .pattern(emailRegexp)
     .messages({ "string.pattern.base": emailPatternValidateMsg }),
-  password: Joi.string().max(64)
-})
+  password: Joi.string().min(8).max(64),
+});
 
-const changeThemeSchema = Joi.object({
+export const changeThemeSchema = Joi.object({
   theme: Joi.string().valid("light", "dark", "violet").insensitive().required(),
 });
 
-const sendHelpMsgSchema = Joi.object({
+export const sendHelpMsgSchema = Joi.object({
   email: Joi.string()
     .pattern(emailRegexp)
     .messages({ "string.pattern.base": emailPatternValidateMsg })
     .required(),
   comment: Joi.string().min(4).max(3000).required(),
 });
-
-export default {
-  registerSchema,
-  loginSchema,
-  updUserInfoSchema,
-  changeThemeSchema,
-  sendHelpMsgSchema,
-};

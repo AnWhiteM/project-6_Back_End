@@ -2,7 +2,7 @@ import { v2 as cloudinary } from "cloudinary";
 import httpError from "../../helpers/httpError.js";
 import User from "../../models/userModel.js";
 
-const changeUserAvatar = async (req, res, next) => {
+const changeAvatar = async (req, res, next) => {
   if (!req.file) throw httpError(400, "Invalid request body");
 
   cloudinary.uploader
@@ -26,4 +26,4 @@ const changeUserAvatar = async (req, res, next) => {
     .end(req.file.buffer);
 };
 
-export default changeUserAvatar;
+export default changeAvatar;
