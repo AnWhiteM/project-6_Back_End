@@ -1,11 +1,11 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import router from "./routes/index.js";
-import "./db/db.js";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./swagger.json" assert { type: "json" };
 import { v2 as cloudinary } from "cloudinary";
+import router from "./routes/index.js";
+import "./db/db.js";
 
 const PORT = process.env.PORT || 8080;
 
@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 cloudinary.config({
-  cloud_name: "dqwyuuuzd",
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_KEY,
   api_secret: process.env.CLOUDINARY_SECRET,
 });

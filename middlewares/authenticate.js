@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/userModel.js";
 import httpError from "../helpers/httpError.js";
 
-async function authenticate(req, res, next) {
+export async function authenticate(req, res, next) {
   try {
     const { authorization } = req.headers;
     if (typeof authorization === undefined) {

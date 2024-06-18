@@ -2,8 +2,7 @@ import { Schema, model } from "mongoose";
 import handleMongooseError from "../helpers/handleMongooseError.js";
 import { emailRegexp } from "../helpers/regexps.js";
 
-
-const userSchema = new Schema(
+export const userSchema = new Schema(
   {
     name: {
       type: String,

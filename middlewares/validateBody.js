@@ -1,6 +1,6 @@
 import httpError from "../helpers/httpError.js";
 
-function validateBody(schema) {
+export function validateBody(schema) {
   const func = (req, res, next) => {
     const { error } = schema.validate(req.body);
     if (error) {
