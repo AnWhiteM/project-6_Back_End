@@ -48,7 +48,6 @@ export const getColumn = async (id, ownerId) => {
 };
 
 export const addColumn = async ({ title, deskId }) => {
-  console.log(title, deskId);
   const column = await Column.create({ title, owner: deskId });
   return column;
 };
