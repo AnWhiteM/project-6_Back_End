@@ -25,8 +25,6 @@ const updUserInfoSchema = Joi.object({
     .messages({ "string.pattern.base": emailPatternValidateMsg }),
   password: Joi.string().max(64)
 })
-  .min(2)
-  .message("No changes");
 
 const changeThemeSchema = Joi.object({
   theme: Joi.string().valid("light", "dark", "violet").insensitive().required(),
