@@ -26,7 +26,7 @@ export async function changeCurrent(req, res, next) {
   }
 
   if (Object.keys(changeDataObj).length === 0) {
-    throw httpError(400, "No data for change");
+    throw httpError(204, "No changes fo update");
   }
 
   const changedUser = await User.findOneAndUpdate({ _id: id }, changeDataObj, {

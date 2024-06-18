@@ -171,14 +171,14 @@
     "/users/update": {
       "patch": {
         "tags": ["User Info"],
-        "summary": "Update User Info",
+        "summary": "Change current user data",
         "security": [{ "Bearer": [] }],
         "requestBody": {
-          "description": "Update data object",
+          "description": "Change data object",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateUserInfoRequest"
+                "$ref": "#/components/schemas/ChangeCurrentUserRequest"
               },
               "example": {
                 "name": "Bob",
@@ -217,10 +217,6 @@
           },
           "401": {
             "description": "Unauthorized (Token wrong)",
-            "content": {}
-          },
-          "403": {
-            "description": "Forbidden (Password wrong)",
             "content": {}
           },
           "404": {
@@ -1324,7 +1320,7 @@
           }
         }
       },
-      "UpdateUserInfoRequest": {
+      "ChangeCurrentUserRequest": {
         "type": "object",
         "properties": {
           "name": {
