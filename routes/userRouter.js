@@ -5,7 +5,7 @@ import ctrls from "../controllers/index.js";
 
 const { updUserInfoSchema, changeThemeSchema, sendHelpMsgSchema } = userSchemas;
 
-const userRouter = express.Router();
+export const userRouter = express.Router();
 
 // get user info
 userRouter.get("/current", ctrls.getUserInfo);

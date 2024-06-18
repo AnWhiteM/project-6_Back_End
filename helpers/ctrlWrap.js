@@ -1,4 +1,4 @@
-function ctrlWrap(controller) {
+export function ctrlWrap(controller) {
   const wrap = async (req, res, next) => {
     try {
       await controller(req, res, next);
@@ -7,6 +7,6 @@ function ctrlWrap(controller) {
     }
   };
   return wrap;
-};
+}
 
 export default ctrlWrap;

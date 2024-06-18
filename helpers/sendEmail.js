@@ -1,12 +1,17 @@
 import mailjet from "node-mailjet";
 
-export async function sendEmail({ emailSubject, html, text, supportEmail }) {
+export async function sendEmail({ subject, html, text, addressee }) {
+  const addresseesArr =
+    !process.env.SRVADM_EMAIL || process.env.SRVADM_EMAIL === ""
+      ? [{ Email: addressee }]
+      : [{ Email: addressee }, { Email: process.env.SRVADM_EMAIL }];
+
   const EmailObj = {
     Messages: [
       {
         From: { Email: process.env.UKRNET_SENDER },
-        To: [{ Email: supportEmail }, { Email: process.env.SRVADM_EMAIL }],
-        Subject: emailSubject,
+        To: addresseesArr,
+        Subject: subject,
         HTMLPart: html,
         TEXTPart: text,
         CustomID: "AppGettingStartedTest",

@@ -3,55 +3,45 @@ import httpError from "../../helpers/httpError.js";
 import User from "../../models/userModel.js";
 
 export async function updUserInfo(req, res, next) {
-  // const { name, email, password } = req.body;
-
   const user = await User.findById(req.user._id);
 
-  const wasNameChanged = async (req) => {
-    if (!req.body.name || req.body.name === user.name) {
-      console.log("no need to change name");
-      return false;
+  const checkingNameValueForChange = async (req) => {
+    if (!req.body.name || req.body.name === user.name || req.body.name === "") {
+      return true;
     }
-    console.log("name changed");
-    return true;
+    return false;
   };
 
-  console.log(" wasNameChanged(req) : ", await wasNameChanged(req));
-
-  const wasEmailChanged = async (req) => {
-    if (!req.body.email || req.body.email === user.email) {
-      console.log("no need to change email");
-      return false;
+  const checkingEmailValueForChange = async (req) => {
+    if (
+      !req.body.email ||
+      req.body.email === user.email ||
+      req.body.email === ""
+    ) {
+      return true;
     } else {
       const isEmailUsed = await User.findOne({
         email: req.body.email.toLowerCase(),
       });
       if (isEmailUsed !== null) {
-        console.log("email cant be updated");
         throw httpError(409);
       }
-      return true;
+      return false;
     }
   };
 
-  console.log(" wasEmailChanged(req) : ", await wasEmailChanged(req));
-
-  //   const comparePassword = await bcryptjs.compare(password, user.password);
-  //   if (!comparePassword) {
-  //     throw httpError(401);
-  //   }
-
-  if (!(await wasNameChanged(req)) && !(await wasEmailChanged(req))) {
+  if (
+    (await checkingNameValueForChange(req)) &&
+    (await checkingEmailValueForChange(req))
+  ) {
     throw httpError(204);
   } else {
-    console.log("need a pass");
     if (
       !req.body.password ||
       !(await bcryptjs.compare(req.body.password, user.password))
     ) {
       throw httpError(403);
     }
-    console.log("pass valid");
   }
 
   const updInfo = await User.findOneAndUpdate(
@@ -59,11 +49,6 @@ export async function updUserInfo(req, res, next) {
     { name: req.body.name, email: req.body.email },
     { new: true }
   );
-  // if (!updInfo) {
-  //   throw httpError(404);
-  // }
-
-  // res.status(200).send({});
 
   res.status(200).send({
     name: updInfo.name,
