@@ -2,7 +2,7 @@ import Joi from "joi";
 import { emailRegexp, emailPatternValidateMsg } from "../helpers/regexps.js";
 
 export const registerSchema = Joi.object({
-  name: Joi.string().min(4).max(64).required(),
+  name: Joi.string().min(2).max(64).required(),
   email: Joi.string()
     .pattern(emailRegexp)
     .messages({ "string.pattern.base": emailPatternValidateMsg })
@@ -19,7 +19,7 @@ export const loginSchema = Joi.object({
 });
 
 export const changeCurrentSchema = Joi.object({
-  name: Joi.string().min(4).max(64),
+  name: Joi.string().min(2).max(64),
   email: Joi.string()
     .pattern(emailRegexp)
     .messages({ "string.pattern.base": emailPatternValidateMsg }),

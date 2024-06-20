@@ -1191,7 +1191,7 @@
           "name": {
             "description": "User registration name",
             "type": "string",
-            "minLength": "4",
+            "minLength": "2",
             "maxLength": "64",
             "example": "Alice"
           },
@@ -1326,7 +1326,7 @@
           "name": {
             "description": "User name",
             "type": "string",
-            "minLength": "4",
+            "minLength": "2",
             "maxLength": "64",
             "example": "Bobby"
           },
@@ -1340,6 +1340,7 @@
           "password": {
             "description": "User password",
             "type": "string",
+            "minLength": "8",
             "maxLength": "64",
             "example": "qwerty123"
           }
