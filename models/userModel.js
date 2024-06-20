@@ -6,7 +6,7 @@ export const userSchema = new Schema(
   {
     name: {
       type: String,
-      minlength: [4, "'Name' must contain min 8 characters"],
+      minlength: [2, "'Name' must contain min 2 characters"],
       maxlength: [64, "'Name' must contain max 64 characters"],
       required: [true, "'Name' is required"],
     },
